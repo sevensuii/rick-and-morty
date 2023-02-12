@@ -3,7 +3,7 @@
     import Card from './Card.svelte';
     import Header from './Header.svelte';
 
-    let page = 41;
+    let page = 1;
     // let pager = [1, 2, 3, 4, 5];
     let pager = [];
     let info = [];
@@ -23,7 +23,7 @@
         let data = await response.json();
         chars = data.results;
         info = data.info;
-        // console.log(info,page);
+        console.log(info,page);
     }
 
     $: {
@@ -57,11 +57,23 @@
 </div>
 
 <div id="pager" class="sm:flex flex-wrap max-w-screen-xl flex-row m-auto justify-center">
-    <button on:click={() => updatePage(page -= 1)}>prev</button>
+    {#if null === info.prev}
+<!--        <button on:click={() => updatePage(page -= 1)} disabled>prev</button>-->
+    {:else}
+        <button on:click={() => updatePage(page -= 1)}>prev</button>
+    {/if}
     {#each pager as p}
-        <button on:click={() => updatePage(page = p)}>{p}</button>
+        {#if p === page}
+            <button class="activo" on:click={() => updatePage(page = p)}>{p}</button>
+        {:else}
+            <button on:click={() => updatePage(page = p)}>{p}</button>
+        {/if}
     {/each}
-    <button on:click={() => updatePage(page += 1)}>next</button>
+    {#if null === info.next}
+<!--        <button on:click={() => updatePage(page += 1)} disabled>next</button>-->
+    {:else}
+        <button on:click={() => updatePage(page += 1)}>next</button>
+    {/if}
 </div>
 
 <style>
@@ -75,7 +87,7 @@
         @apply bg-black text-white;
     }
 
-    #pager .active
+    #pager .activo
     {
         @apply bg-black text-white;
     }
