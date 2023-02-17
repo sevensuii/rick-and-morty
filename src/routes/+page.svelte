@@ -49,6 +49,10 @@
 </script>
 
 <Header></Header>
+<div id="filtros" class="flex justify-center">
+    <input type="search" name="nombre" id="nombre" class="border-black border-2">
+    <span>buscar</span>
+</div>
 <div class="sm:flex flex-wrap max-w-screen-xl flex-row m-auto justify-center">
 <!--<div class="mr-auto ml-auto grid max-w-screen-xl gap-10 md:grid-cols-2 sm:mx-auto">-->
     {#each chars as r}
